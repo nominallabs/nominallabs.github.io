@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nominal Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0d11;
+  --surface: #0f1318;
+  --surface2: #14191f;
+  --border: rgba(104,153,184,0.12);
+  --border-mid: rgba(104,153,184,0.22);
+  --text: #e8ecf4;
+  --muted: #9aa4b4;
+  --dim: #495260;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 3rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(14,14,12,0.92);
+  backdrop-filter: blur(14px);
+  z-index: 50;
+}
+
+.logo {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-links a.cta {
+  color: var(--text);
+  opacity: 0.6;
+  border: 1px solid var(--border-mid);
+  padding: 0.45rem 1rem;
+  transition: all 0.2s;
+}
+
+.nav-links a.cta:hover { opacity: 1; border-color: rgba(255,255,255,0.25); }
+
+/* HERO */
+.hero {
+  padding: 9rem 3rem 8rem;
+  max-width: 900px;
+  opacity: 0;
+  animation: appear 1s ease 0.1s forwards;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+  max-width: 18ch;
+}
+
+.hero h1 .fade {
+  color: var(--muted);
+}
+
+.hero-body {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 44ch;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 3rem;
+}
+
+.hero-cta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.55;
+  border-bottom: 1px solid var(--border-mid);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.hero-cta:hover { opacity: 1; }
+
+/* RULE */
+.rule {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* SERVICES */
+#services {
+  padding: 6rem 3rem;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 3.5rem;
+}
+
+.services-list {
+  border-top: 1px solid var(--border);
+}
+
+.service-item {
+  display: grid;
+  grid-template-columns: 220px 1fr 180px;
+  gap: 3.5rem;
+  align-items: start;
+  padding: 2.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.service-item:hover .service-name { opacity: 1; }
+
+.service-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding-top: 0.1rem;
+  color: var(--text);
+}
+
+.service-desc {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 54ch;
+}
+
+.service-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: flex-end;
+  padding-top: 0.2rem;
+}
+
+.pill {
+  font-family: var(--mono);
+  font-size: 0.57rem;
+  color: var(--dim);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.service-item:hover .pill {
+  border-color: var(--border-mid);
+  color: var(--muted);
+}
+
+/* ABOUT */
+#about {
+  padding: 6rem 3rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.about-left {
+  position: sticky;
+  top: 6rem;
+}
+
+.about-hed {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.about-location {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+}
+
+.about-body p {
+  font-size: 0.925rem;
+  color: var(--muted);
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+}
+
+.about-body p:last-child { margin-bottom: 0; }
+
+.about-body strong {
+  color: var(--text);
+  font-weight: 400;
+}
+
+/* CONTACT */
+#contact {
+  padding: 6rem 3rem;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.contact-hed {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25rem;
+  color: var(--text);
+}
+
+.contact-sub {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  max-width: 36ch;
+}
+
+.contact-email-line {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+}
+
+.contact-email-line a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-mid);
+  padding-bottom: 1px;
+  transition: color 0.15s;
+}
+
+.contact-email-line a:hover { color: var(--text); }
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 300;
+  padding: 0.75rem 1rem;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--dim); }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(--border-mid); }
+
+.field select option { background: var(--surface2); }
+
+.field textarea { resize: vertical; min-height: 110px; }
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.btn-submit {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-mid);
+  padding: 0.85rem 1.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
+
+.btn-submit:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.04);
+}
+
+/* FOOTER */
+footer {
+  padding: 1.5rem 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-txt {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0.06em;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1.1rem 1.5rem; }
+  .nav-links a:not(.cta) { display: none; }
+  .hero, #services, #about, #contact { padding: 4rem 1.5rem; }
+  .service-item { grid-template-columns: 1fr; gap: 1rem; }
+  .service-pills { justify-content: flex-start; }
+  .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .about-left { position: static; }
+  .field-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="13" cy="13" r="12" fill="none" stroke="#6899b8" stroke-width="0.25" opacity="0.08"/>
+      <circle cx="13" cy="13" r="10" fill="none" stroke="#6899b8" stroke-width="0.28" opacity="0.13"/>
+      <circle cx="13" cy="13" r="8" fill="none" stroke="#6899b8" stroke-width="0.32" opacity="0.19"/>
+      <circle cx="13" cy="13" r="6" fill="none" stroke="#6899b8" stroke-width="0.4" opacity="0.27"/>
+      <circle cx="13" cy="13" r="4.5" fill="none" stroke="#6899b8" stroke-width="0.52" opacity="0.38"/>
+      <path d="M 5 18 A 9 9 0 0 0 18 5" fill="none" stroke="#6899b8" stroke-width="1.8" opacity="0.9" stroke-linecap="round"/>
+      <path d="M 18 5 A 9 9 0 0 0 21 15" fill="none" stroke="#6899b8" stroke-width="0.4" opacity="0.08" stroke-linecap="round"/>
+    </svg>
+    <span style="font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em;"><span style="color:#6899b8;opacity:0.28;">N</span><span style="color:#6899b8;opacity:0.38;">O</span><span style="color:#6899b8;opacity:0.48;">M</span><span style="color:#6899b8;opacity:0.58;">I</span><span style="color:#6899b8;opacity:0.67;">N</span><span style="color:#6899b8;opacity:0.76;">A</span><span style="color:#6899b8;opacity:0.84;">L</span><span style="color:#6899b8;"> </span><span style="color:#6899b8;opacity:0.88;">L</span><span style="color:#6899b8;opacity:0.93;">A</span><span style="color:#6899b8;opacity:0.97;">B</span><span style="color:#6899b8;opacity:1;">S</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="cta">Get in touch</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Cleveland, OH &nbsp;·&nbsp; Est. 2026</p>
+  <h1>Systems that work.<br><span class="fade">In whatever world they live in.</span></h1>
+  <p class="hero-body">
+    Some problems are technical. Some are creative. Some sit right at the edge of both. Nominal Labs takes on the ones that don't fit neatly into a job description.
+  </p>
+  <a href="#contact" class="hero-cta">Start a conversation →</a>
+</section>
+
+<hr class="rule">
+
+<section id="services">
+  <p class="section-tag">The work</p>
+
+  <div class="services-list">
+
+    <div class="service-item">
+      <div class="service-name">Planning &amp; Documentation</div>
+      <div class="service-desc">
+        Most organizations and studios have systems that work but nobody has written down how. Step-by-step operational guides, architecture documents, platform references, onboarding materials, signal flow diagrams, and DAW templates — clear documentation that exists, is accurate, and that someone other than the person who built it can actually follow. Useful anywhere institutional knowledge lives only in someone's head.
+      </div>
+      <div class="service-pills">
+        <span class="pill">Architecture Diagrams</span>
+        <span class="pill">Visio / Draw.io</span>
+        <span class="pill">Operational Guides</span>
+        <span class="pill">Onboarding</span>
+        <span class="pill">Studio Templates</span>
+        <span class="pill">Platform Docs</span>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-name">Audio &amp; Sound Organization</div>
+      <div class="service-desc">
+        Sample libraries, sound effects, and production assets — organized, tagged, and findable. If you're losing time hunting through folders for something you know you have, that's the problem this solves. Delivered in a structure that fits the way you actually work.
+      </div>
+      <div class="service-pills">
+        <span class="pill">Soundminer</span>
+        <span class="pill">BWF MetaEdit</span>
+        <span class="pill">Metadata</span>
+        <span class="pill">Folder Architecture</span>
+        <span class="pill">Delivery</span>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-name">Infrastructure &amp; Networking</div>
+      <div class="service-desc">
+        Devices deployed, networks configured, equipment talking to each other. Whether it's an office network, a home studio, or a small production facility — the same principles apply. Wi-Fi, VPN, access control, audio signal flow, interface routing, and the physical layer that everything else depends on. Clean it up, document it, and make it reliable.
+      </div>
+      <div class="service-pills">
+        <span class="pill">Wi-Fi &amp; VPN</span>
+        <span class="pill">Access Control</span>
+        <span class="pill">Device Deployment</span>
+        <span class="pill">Studio Setup</span>
+        <span class="pill">Signal Flow</span>
+        <span class="pill">Audio Routing</span>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-name">Endpoint Security &amp; Identity</div>
+      <div class="service-desc">
+        Who has access to what, are your devices compliant, and is anything slipping through. Endpoint management, identity governance, and the compliance controls that auditors and leadership actually want to see. Available for select engagements.
+      </div>
+      <div class="service-pills">
+        <span class="pill">MDM / Endpoint Mgmt</span>
+        <span class="pill">Identity &amp; Access</span>
+        <span class="pill">Threat Protection</span>
+        <span class="pill">SSO</span>
+        <span class="pill">Compliance</span>
+      </div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-name">Automation &amp; Visibility</div>
+      <div class="service-desc">
+        If your team is doing the same thing manually every week, that's a solvable problem. Automated workflows, scripted processes, and dashboards that surface what's actually happening — so decisions get made on real data. Available for select engagements.
+      </div>
+      <div class="service-pills">
+        <span class="pill">Workflow Automation</span>
+        <span class="pill">Scripting</span>
+        <span class="pill">Dashboards</span>
+        <span class="pill">Reporting</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left">
+      <h2 class="about-hed">Engineer. Musician.<br>In that order, most days.</h2>
+      <p class="about-location">Cleveland, OH &nbsp;·&nbsp; Remote available</p>
+    </div>
+    <div class="about-body">
+      <!-- CONTENT REVIEW NEEDED: Justin to review and adjust this bio — credentials, tone, what to keep/cut -->
+      <p>IT engineer by day, and still working on music whenever there's time. Formally trained in music composition, film scoring, and audio engineering — the technical side of both worlds has always been where things click.</p>
+      <p>Several years in enterprise systems administration — endpoints, identity, networking, security, and the Microsoft stack that most organizations run. Vendor certifications and platform preferences aside, the job is making things work and keeping them that way. Windows, Mac, or mixed environments — the approach doesn't change much.</p>
+      <p>The studio side never went away. Composition, audio engineering, and the technical layer around production. Some days it's about the music, some days it's about the gear and the workflow. Both matter.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-hed">Let's figure out what you need.</h2>
+      <p class="contact-sub">Tell me what's going on.</p>
+      <p class="contact-email-line">Or reach out directly: <a href="mailto:hello@nominallab.com">hello@nominallab.com</a></p>
+    </div>
+
+    <form class="contact-form" action="mailto:hello@nominallab.com" method="get" enctype="text/plain">
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="field">
+        <label for="service">Type of work</label>
+        <select id="service" name="service">
+          <option value="">Select one...</option>
+          <option>Audio &amp; sound organization</option>
+          <option>Infrastructure &amp; networking</option>
+          <option>Endpoint security &amp; identity</option>
+          <option>Automation &amp; visibility</option>
+          <option>Planning &amp; documentation</option>
+          <option>Not sure yet — let's talk</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">What's the problem?</label>
+        <textarea id="message" name="body" placeholder="What's broken, disorganized, or needs to exist?"></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send →</button>
+    </form>
+  </div>
+</section>
+
+<section id="listening" style="padding: 3rem 3rem; border-top: 1px solid var(--border);">
+  <p style="font-family: var(--mono); font-size: 0.62rem; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.75rem;">— listening</p>
+  <div style="display: flex; align-items: center; gap: 3rem;">
+
+    <!-- event horizon ring -->
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0; opacity:0.85;">
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#6899b8" stroke-width="0.25" opacity="0.08"/>
+      <circle cx="32" cy="32" r="26" fill="none" stroke="#6899b8" stroke-width="0.28" opacity="0.13"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="#6899b8" stroke-width="0.32" opacity="0.19"/>
+      <circle cx="32" cy="32" r="18" fill="none" stroke="#6899b8" stroke-width="0.4" opacity="0.27"/>
+      <circle cx="32" cy="32" r="14" fill="none" stroke="#6899b8" stroke-width="0.52" opacity="0.38"/>
+      <path d="M 14 46 A 22 22 0 0 0 46 20" fill="none" stroke="#6899b8" stroke-width="2.2" opacity="0.9" stroke-linecap="round"/>
+      <path d="M 46 20 A 22 22 0 0 0 52 38" fill="none" stroke="#6899b8" stroke-width="0.5" opacity="0.08" stroke-linecap="round"/>
+    </svg>
+
+    <!-- floating wheel -->
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+      <div id="track-wheel" style="display:flex; flex-direction:column; gap:0.3rem; user-select:none; cursor:ns-resize;"></div>
+      <div id="music-share" style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+        <span style="font-family:'DM Mono',monospace; font-size:0.6rem; color:var(--dim); letter-spacing:0.08em; white-space:nowrap;">// share something</span>
+        <input id="share-name" type="text" placeholder="your name" style="font-family:'DM Mono',monospace; font-size:0.68rem; background:transparent; border:none; border-bottom:1px solid rgba(104,153,184,0.2); color:#6899b8; outline:none; width:110px; padding:0.15rem 0; letter-spacing:0.04em;" onmouseover="this.style.borderBottomColor='rgba(104,153,184,0.5)'" onmouseout="this.style.borderBottomColor='rgba(104,153,184,0.2)'"/>
+        <input id="share-input" type="text" placeholder="artist — track" style="font-family:'DM Mono',monospace; font-size:0.68rem; background:transparent; border:none; border-bottom:1px solid rgba(104,153,184,0.2); color:#6899b8; outline:none; width:220px; padding:0.15rem 0; letter-spacing:0.04em;" onmouseover="this.style.borderBottomColor='rgba(104,153,184,0.5)'" onmouseout="this.style.borderBottomColor='rgba(104,153,184,0.2)'"/>
+        <button onclick="submitTrack()" style="font-family:'DM Mono',monospace; font-size:0.6rem; color:var(--dim); background:none; border:none; cursor:pointer; letter-spacing:0.06em; padding:0; transition:color 0.15s;" onmouseover="this.style.color='#6899b8'" onmouseout="this.style.color='var(--dim)'">send →</button>
+        <span id="share-confirm" style="font-family:'DM Mono',monospace; font-size:0.6rem; color:rgba(104,153,184,0.5); letter-spacing:0.06em; display:none;">received.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const tracks = [
+  "Lucy Dacus — Home Video",
+  "The Juan MacLean — By the Time I Get to Venus",
+  "Majical Cloudz — Downtown",
+  "Mal Devisa — Amorph(e)ous",
+  "Ugly (UK) — Sha",
+  "Lime Garden — Do You Know What I'm Thinking",
+  "Twain — Death"
+];
+
+let focused = 0;
+let lastScroll = 0;
+const scrollCooldown = 120;
+
+function wheelRender() {
+  const el = document.getElementById('track-wheel');
+  el.innerHTML = tracks.map((t, i) => {
+    const dist = Math.abs(i - focused);
+    const opacity = dist === 0 ? 1 : dist === 1 ? 0.35 : dist === 2 ? 0.15 : 0.06;
+    const weight = dist === 0 ? '500' : '300';
+    const size = dist === 0 ? '0.85rem' : '0.75rem';
+    return `<div style="font-family:'DM Mono',monospace; font-size:${size}; font-weight:${weight}; color:#6899b8; opacity:${opacity}; transition:all 0.2s; line-height:1.6; letter-spacing:0.04em;">${t}</div>`;
+  }).join('');
+}
+
+const wheel = document.getElementById('track-wheel');
+
+wheel.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const now = Date.now();
+  if (now - lastScroll < scrollCooldown) return;
+  lastScroll = now;
+  if (e.deltaY > 0) focused = Math.min(focused + 1, tracks.length - 1);
+  else focused = Math.max(focused - 1, 0);
+  wheelRender();
+}, { passive: false });
+
+// touch support
+let touchStartY = 0;
+wheel.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+wheel.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const dy = touchStartY - e.touches[0].clientY;
+  if (Math.abs(dy) > 20) {
+    focused = dy > 0 ? Math.min(focused + 1, tracks.length - 1) : Math.max(focused - 1, 0);
+    touchStartY = e.touches[0].clientY;
+    wheelRender();
+  }
+}, { passive: false });
+
+wheelRender();
+
+function submitTrack() {
+  const input = document.getElementById('share-input');
+  const nameInput = document.getElementById('share-name');
+  const val = input.value.trim();
+  const name = nameInput.value.trim() || 'anonymous';
+  if (!val) return;
+  fetch('https://script.google.com/macros/s/AKfycbxSyVusEJ5BJsF0Q9gcnG-cEChl-F9kqniuEtKgPMw-Ujchen0UBZfBXTNBwTx3jpQ/exec', {
+    method: 'POST',
+    body: JSON.stringify({ track: val, name: name })
+  }).then(() => {
+    input.value = '';
+    nameInput.value = '';
+    const confirm = document.getElementById('share-confirm');
+    confirm.style.display = 'inline';
+    setTimeout(() => { confirm.style.display = 'none'; }, 2500);
+  }).catch(() => {});
+}
+
+document.getElementById('share-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') submitTrack();
+});
+</script>
+
+<footer>
+  <span class="footer-txt">Nominal Labs — Cleveland, OH</span>
+  <span class="footer-txt">hello@nominallab.com</span>
+  <span class="footer-txt">© 2026</span>
+</footer>
+
+</body>
+</html>
